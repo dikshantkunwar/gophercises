@@ -27,12 +27,16 @@ func readCSVFile(filepath string) [][]string {
 func main() {
 	records := readCSVFile("test.csv")
 
-	fmt.Println("Enter a time limit (Default is 20): ")
+	fmt.Println("Enter a time limit: ")
 	var timeLimit int
 	var timeLimitSeconds int
 	var totalCorrectAnswers int
 
-	fmt.Scanln(&timeLimit)
+	_, err := fmt.Scanln(&timeLimit)
+	if err != nil {
+		fmt.Println("Error scanning time limit...default to 20")
+		timeLimit = 20
+	}
 
 	timeLimitSeconds = 60 * timeLimit
 	timer := time.NewTimer(time.Duration(timeLimitSeconds) * time.Second)
